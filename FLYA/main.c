@@ -54,13 +54,14 @@ void main() {
 					count = 0;
 				Sleep(100);
 			}
-			char * name = PrintGameOver(score);
-			printf("%s\n", name);
+			PrintGameOver(score);
+			//SaveRanking(name, score);
 			while (1) {
 
 			}
 			/* 랭킹 확인 */
 		case RANKING:
+			PrintRanking();
 			break;
 			/* 그냥 종료 */
 		case EXIT:

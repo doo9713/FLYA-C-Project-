@@ -6,7 +6,7 @@
 #include <malloc.h>
 #include <time.h>
 
-#define BUFFSIZE 1024
+#define BUFFSIZE 256
 
 #pragma region MenuSet
 #define START 1
@@ -47,3 +47,9 @@ typedef struct Node {
 	int ypos;
 	struct Node * next;
 } Node, *PNode;
+
+/* 랭킹정보를 저장할 구조체 */
+typedef struct Ranking {
+	char str[BUFFSIZE];
+	int score;
+} Ranking;
