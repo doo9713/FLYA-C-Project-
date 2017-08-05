@@ -8,6 +8,7 @@ void main() {
 	Node EnemyHead = { -1, -1, 0 };
 	Node BulletHead = { -1, -1, 0 };
 	int count = 0;
+	int score = 0;
 
 	while (1) {
 		system("cls");
@@ -24,12 +25,12 @@ void main() {
 			MakePlayer(GameWorld, &MyPos);
 			MakeEnemy(GameWorld, &EnemyHead);
 			MakeBullet(GameWorld, &MyPos, &BulletHead);
-			PrintBoard(GameWorld);
+			PrintBoard(GameWorld, score);
 
 			while (1) {
 				system("cls");
 				count += 1;
-				PrintBoard(GameWorld);
+				PrintBoard(GameWorld, score);
 				ControlPlayer(GameWorld, &MyPos);
 				/* 적 컨트롤 */
 				if (count % 5 == 0) {
@@ -45,12 +46,18 @@ void main() {
 				}
 				if (count % 3 == 0)
 					ClearBullet(GameWorld);
-				CheckEnemy(&EnemyHead);
+				if (CheckEnemy(&EnemyHead))
+					break;
 				CheckBullet(&BulletHead);
-				CheckTrigger(&EnemyHead, &BulletHead);
+				CheckTrigger(GameWorld, &EnemyHead, &BulletHead, &score);
 				if (count == 10)
 					count = 0;
 				Sleep(100);
+			}
+			char * name = PrintGameOver(score);
+			printf("%s\n", name);
+			while (1) {
+
 			}
 			/* 랭킹 확인 */
 		case RANKING:

@@ -18,3 +18,25 @@ int PrintMainMenu() {
 	scanf("%d", &Select);
 	return Select;
 }
+
+char * PrintGameOver(int Score) {
+	char name[BUFFSIZE];
+	system("cls");
+	printf("\n\n\n");
+	printf("  ######      #      ##   ##  ######	\n");
+	printf(" ##          ###     ### ###  ##  		\n");
+	printf("##  ####    ## ##    #######  ######	\n");
+	printf(" #######   #######   ## # ##  ##		\n");
+	printf("  ### ##  ##     ##  ##   ##  ######	\n\n");
+
+	printf("  ####	  ##     ##  ######   #####		\n");
+	printf(" ##  ##	   ##   ##   ##	  ##  ##  ##	\n");
+	printf("##    ##    ## ##    ######   #####		\n");
+	printf(" ##  ##	     ###     ##	  ##  ## ##		\n");
+	printf("  ####	      #      ######   ##  ##	\n\n");
+
+	printf("            Your Score : %d\n", Score);
+	printf("            Input Name >> ");
+	scanf("%s", name);
+	return name;
+}

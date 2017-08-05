@@ -1,7 +1,3 @@
 ﻿  main.c
-  game.c
-d:\문서\github\flya-c-project-\flya\game.c(46): warning C4013: 'kbhit'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-d:\문서\github\flya-c-project-\flya\game.c(47): warning C4013: 'getch'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-  코드를 생성하고 있습니다...
   FLYA.vcxproj -> D:\문서\GitHub\FLYA-C-Project-\FLYA\Debug\FLYA.exe
   FLYA.vcxproj -> D:\문서\GitHub\FLYA-C-Project-\FLYA\Debug\FLYA.pdb (Full PDB)

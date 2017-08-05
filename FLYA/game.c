@@ -13,7 +13,7 @@ void MakeBoard(char(*GameWorld)[SIZE_Y]) {
 }
 
 /* 게임의 판 출력 */
-void PrintBoard(char(*GameWorld)[SIZE_Y]) {
+void PrintBoard(char(*GameWorld)[SIZE_Y], int score) {
 	for (int i = 0; i < SIZE_Y; ++i)
 		printf("-");
 	printf("\n");
@@ -29,8 +29,7 @@ void PrintBoard(char(*GameWorld)[SIZE_Y]) {
 	for (int i = 0; i < SIZE_Y; ++i)
 		printf("-");
 	printf("\n");
-	printf("  Score : %d\n", 0);
-	printf(" Escape : %d\n", 0);
+	printf("  Score : %d\n", score);
 }
 
 /* 플레이어 초기위치 설정 */
@@ -116,15 +115,18 @@ void DeleteNode(PNode Enemy) {
 }
 
 /* 제거할 적 확인 */
-void CheckEnemy(PNode Enemy) {
+int CheckEnemy(PNode Enemy) {
 	PNode t_Enemy = Enemy;
 	if (t_Enemy->next == NULL)
 		return; // 적이 하나도 없는경우
 	while (t_Enemy->next != NULL) {
-		if (t_Enemy->next->xpos >= SIZE_X)
+		if (t_Enemy->next->xpos >= SIZE_X) {
 			DeleteNode(t_Enemy);
+			return 1;
+		}
 		t_Enemy = t_Enemy->next;
 	}
+	return 0;
 }
 
 /* 총알 생성 */
@@ -183,7 +185,7 @@ void ClearBullet(char(*GameWorld)[SIZE_Y]) {
 }
 
 /* 충돌 검사 */
-void CheckTrigger(PNode Enemy, PNode Bullet) {
+void CheckTrigger(char(*GameWorld)[SIZE_Y], PNode Enemy, PNode Bullet, int * score) {
 	PNode t_Enemy = Enemy;
 	PNode t_Bullet = Bullet;
 	if (t_Enemy->next == NULL)
@@ -195,8 +197,11 @@ void CheckTrigger(PNode Enemy, PNode Bullet) {
 		while (t_Bullet->next != NULL) {
 			if (t_Bullet->next->xpos == t_Enemy->next->xpos &&
 				t_Bullet->next->ypos == t_Enemy->next->ypos) {
+				GameWorld[t_Bullet->next->xpos][t_Bullet->next->ypos] = EMPTY;
 				DeleteNode(t_Bullet);
 				DeleteNode(t_Enemy);
+				(*score) += 1;
+				break;
 			}
 			t_Bullet = t_Bullet->next;
 		}

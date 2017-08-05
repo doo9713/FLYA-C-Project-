@@ -6,6 +6,8 @@
 #include <malloc.h>
 #include <time.h>
 
+#define BUFFSIZE 1024
+
 #pragma region MenuSet
 #define START 1
 #define RANKING 2
@@ -14,7 +16,7 @@
 
 #pragma region MapSize
 #define SIZE_X 20
-#define SIZE_Y 50
+#define SIZE_Y 30
 #pragma endregion
 
 #pragma region MapOBJ
