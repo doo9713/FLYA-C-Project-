@@ -22,7 +22,7 @@ void PrintBoard(char(*GameWorld)[SIZE_Y]) {
 		GameWorld[i][0] = WALL;
 		GameWorld[i][SIZE_Y - 1] = WALL;
 		for (int j = 0; j < SIZE_Y; ++j)
-			printf("%c", GameWorld[i][j]);
+			printf("%c", GameWorld[i][j]);	
 		printf("\n");
 	}
 
@@ -108,21 +108,21 @@ void ControlEnemy(char(*GameWorld)[SIZE_Y], PNode Enemy) {
 	}
 }
 
-/* 적 제거 */
-void DeleteEnemy(PNode Enemy) {
+/* 제거 */
+void DeleteNode(PNode Enemy) {
 	PNode Del = Enemy->next;
 	Enemy->next = Enemy->next->next;
 	free(Del);
 }
 
 /* 제거할 적 확인 */
-void CheckEnemy(PNode Enemy, PNode Bullet) {
+void CheckEnemy(PNode Enemy) {
 	PNode t_Enemy = Enemy;
 	if (t_Enemy->next == NULL)
 		return; // 적이 하나도 없는경우
 	while (t_Enemy->next != NULL) {
 		if (t_Enemy->next->xpos >= SIZE_X)
-			DeleteEnemy(t_Enemy);
+			DeleteNode(t_Enemy);
 		t_Enemy = t_Enemy->next;
 	}
 }
@@ -155,9 +155,51 @@ void ControlBullet(char(*GameWorld)[SIZE_Y], PNode Bullet) {
 	PNode temp = Bullet->next;
 	while (temp->next != NULL) {
 		GameWorld[temp->xpos][temp->ypos] = EMPTY;
-		if (temp->xpos > 0)
+		if (temp->xpos > 0) {
 			temp->xpos -= 1;
-		GameWorld[temp->xpos][temp->ypos] = BULLET;
+			GameWorld[temp->xpos][temp->ypos] = BULLET;
+		}
 		temp = temp->next;
+	}
+}
+
+/* 제거할 총알 확인 */
+void CheckBullet(PNode Bullet) {
+	PNode t_Bullet = Bullet;
+	if (t_Bullet->next == NULL)
+		return; // 총알이 하나도 없는경우
+	while (t_Bullet->next != NULL) {
+		if (t_Bullet->next->xpos <= 0)
+			DeleteNode(t_Bullet);
+		t_Bullet = t_Bullet->next;
+	}
+}
+
+/* 총알 클리어 */
+void ClearBullet(char(*GameWorld)[SIZE_Y]) {
+	for (int i = 1; i < SIZE_Y - 1; ++i)
+		if (GameWorld[0][i] == BULLET)
+			GameWorld[0][i] = EMPTY;
+}
+
+/* 충돌 검사 */
+void CheckTrigger(PNode Enemy, PNode Bullet) {
+	PNode t_Enemy = Enemy;
+	PNode t_Bullet = Bullet;
+	if (t_Enemy->next == NULL)
+		return; // 적이 하나도 없는경우
+	if (t_Bullet->next == NULL)
+		return; // 총알이 하나도 없는경우
+
+	while (t_Enemy->next != NULL) {
+		while (t_Bullet->next != NULL) {
+			if (t_Bullet->next->xpos == t_Enemy->next->xpos &&
+				t_Bullet->next->ypos == t_Enemy->next->ypos) {
+				DeleteNode(t_Bullet);
+				DeleteNode(t_Enemy);
+			}
+			t_Bullet = t_Bullet->next;
+		}
+		t_Enemy = t_Enemy->next;
 	}
 }

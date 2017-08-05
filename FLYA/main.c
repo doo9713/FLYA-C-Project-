@@ -6,7 +6,7 @@ void main() {
 	char GameWorld[SIZE_X][SIZE_Y];
 	PlayerPos MyPos;
 	Node EnemyHead = { -1, -1, 0 };
-	Node BulletHead = { -1, -1, 0 };;
+	Node BulletHead = { -1, -1, 0 };
 	int count = 0;
 
 	while (1) {
@@ -23,6 +23,7 @@ void main() {
 			MakeBoard(GameWorld);
 			MakePlayer(GameWorld, &MyPos);
 			MakeEnemy(GameWorld, &EnemyHead);
+			MakeBullet(GameWorld, &MyPos, &BulletHead);
 			PrintBoard(GameWorld);
 
 			while (1) {
@@ -35,13 +36,18 @@ void main() {
 					if (count % 10 == 0)
 						MakeEnemy(GameWorld, &EnemyHead);
 					ControlEnemy(GameWorld, &EnemyHead);
+					ClearBullet(GameWorld);
 				}
 				/* ÃÑ¾Ë ÄÁÆ®·Ñ */
 				if (count % 2 == 0) {
 					MakeBullet(GameWorld, &MyPos, &BulletHead);
 					ControlBullet(GameWorld, &BulletHead);
 				}
-				CheckEnemy(&EnemyHead, &BulletHead);
+				if (count % 3 == 0)
+					ClearBullet(GameWorld);
+				CheckEnemy(&EnemyHead);
+				CheckBullet(&BulletHead);
+				CheckTrigger(&EnemyHead, &BulletHead);
 				if (count == 10)
 					count = 0;
 				Sleep(100);
