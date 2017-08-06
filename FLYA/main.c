@@ -18,6 +18,11 @@ void main() {
 		{
 			/* 게임 시작 */
 		case START:
+			if (EnemyHead.next != NULL)
+				AllNodeDelete(&EnemyHead);
+			if (BulletHead.next != NULL)
+				AllNodeDelete(&BulletHead);
+
 			system("cls");
 			srand((unsigned)time(NULL));
 
@@ -55,10 +60,7 @@ void main() {
 				Sleep(100);
 			}
 			PrintGameOver(score);
-			//SaveRanking(name, score);
-			while (1) {
-
-			}
+			score = 0;
 			/* 랭킹 확인 */
 		case RANKING:
 			PrintRanking();

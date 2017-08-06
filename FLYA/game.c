@@ -101,8 +101,10 @@ void ControlEnemy(char(*GameWorld)[SIZE_Y], PNode Enemy) {
 	PNode temp = Enemy->next;
 	while (temp->next != NULL) {
 		GameWorld[temp->xpos][temp->ypos] = EMPTY;
-		temp->xpos += 1;
-		GameWorld[temp->xpos][temp->ypos] = ENEMY;
+		if (temp->xpos < SIZE_X - 1) {
+			temp->xpos += 1;
+			GameWorld[temp->xpos][temp->ypos] = ENEMY;
+		}	
 		temp = temp->next;
 	}
 }
@@ -118,9 +120,9 @@ void DeleteNode(PNode Enemy) {
 int CheckEnemy(PNode Enemy) {
 	PNode t_Enemy = Enemy;
 	if (t_Enemy->next == NULL)
-		return; // 적이 하나도 없는경우
+		return 0; // 적이 하나도 없는경우
 	while (t_Enemy->next != NULL) {
-		if (t_Enemy->next->xpos >= SIZE_X) {
+		if (t_Enemy->next->xpos == SIZE_X - 1) {
 			DeleteNode(t_Enemy);
 			return 1;
 		}
@@ -186,14 +188,15 @@ void ClearBullet(char(*GameWorld)[SIZE_Y]) {
 
 /* 충돌 검사 */
 void CheckTrigger(char(*GameWorld)[SIZE_Y], PNode Enemy, PNode Bullet, int * score) {
-	PNode t_Enemy = Enemy;
-	PNode t_Bullet = Bullet;
+	PNode t_Enemy = Enemy;	
 	if (t_Enemy->next == NULL)
 		return; // 적이 하나도 없는경우
-	if (t_Bullet->next == NULL)
-		return; // 총알이 하나도 없는경우
 
 	while (t_Enemy->next != NULL) {
+		PNode t_Bullet = Bullet;
+		if (t_Bullet->next == NULL)
+			return; // 총알이 하나도 없는경우
+
 		while (t_Bullet->next != NULL) {
 			if (t_Bullet->next->xpos == t_Enemy->next->xpos &&
 				t_Bullet->next->ypos == t_Enemy->next->ypos) {
@@ -208,3 +211,13 @@ void CheckTrigger(char(*GameWorld)[SIZE_Y], PNode Enemy, PNode Bullet, int * sco
 		t_Enemy = t_Enemy->next;
 	}
 }
+
+/* 모든 연결리스트 오브젝트 제거 */
+void AllNodeDelete(PNode node) {
+	PNode t_node = node;
+	if (t_node->next == NULL)
+		return; // 적이 하나도 없는경우
+	while (t_node->next != NULL)
+		DeleteNode(t_node);
+}
+

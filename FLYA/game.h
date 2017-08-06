@@ -24,3 +24,4 @@ void ClearBullet(char(*GameWorld)[SIZE_Y]);
 /* 게임오브젝트 관리 */
 void CheckTrigger(char(*GameWorld)[SIZE_Y], PNode Enemy, PNode Bullet, int * score);
 void DeleteNode(PNode Enemy);
+void AllNodeDelete(PNode node);
