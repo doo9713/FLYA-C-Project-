@@ -19,8 +19,6 @@ void PrintBoard(char(*GameWorld)[SIZE_Y], int score) {
 	printf("\n");
 
 	for (int i = 0; i < SIZE_X; ++i) {
-		GameWorld[i][0] = WALL;
-		GameWorld[i][SIZE_Y - 1] = WALL;
 		for (int j = 0; j < SIZE_Y; ++j)
 			printf("%c", GameWorld[i][j]);	
 		printf("\n");
@@ -76,7 +74,7 @@ void ControlPlayer(char(*GameWorld)[SIZE_Y], PPlayerPos MyPos) {
 
 /* 적 생성 */
 PNode MakeEnemy(char(*GameWorld)[SIZE_Y], PNode Enemy) {
-	int ypos = (rand() % SIZE_Y - 3) + 2;
+	int ypos = (rand() % (SIZE_Y - 3)) + 1;
 
 	/* 링크드 리스트에 적을 추가 */
 	PNode temp = Enemy->next;
