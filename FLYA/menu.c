@@ -23,23 +23,24 @@ void PrintGameOver(int score) {
 	char name[BUFFSIZE];
 	system("cls");
 	printf("\n\n\n");
-	printf("  ######      #      ##   ##  ######	\n");
-	printf(" ##          ###     ### ###  ##  		\n");
-	printf("##  ####    ## ##    #######  ######	\n");
-	printf(" #######   #######   ## # ##  ##		\n");
-	printf("  ### ##  ##     ##  ##   ##  ######	\n\n");
+	printf("  ######      #      ##   ##  ####### \n");
+	printf(" ##          ###     ### ###  ##      \n");
+	printf("##  ####    ## ##    #######  ####### \n");
+	printf(" #######   #######   ## # ##  ##      \n");
+	printf("  ### ##  ##     ##  ##   ##  ####### \n\n");
 
-	printf("  ####	  ##     ##  ######   #####		\n");
-	printf(" ##  ##	   ##   ##   ##	  ##  ##  ##	\n");
-	printf("##    ##    ## ##    ######   #####		\n");
-	printf(" ##  ##	     ###     ##	  ##  ## ##		\n");
-	printf("  ####	      #      ######   ##  ##	\n\n");
+	printf("  ####    ##     ##  #######  ######  \n");
+	printf(" ##  ##    ##   ##   ##       ##  ### \n");
+	printf("##    ##    ## ##    #######  ######  \n");
+	printf(" ##  ##      ###     ##       ##  ##  \n");
+	printf("  ####        #      #######  ##   ## \n\n");
 
 	printf("            Your Score : %d\n", score);
 	printf("            Input Name >> ");
 	scanf("%s", name);
 	SaveRanking(name, score);
 }
+
 
 void PrintRanking() {
 	char Path[BUFFSIZE];

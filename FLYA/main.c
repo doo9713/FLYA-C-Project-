@@ -2,6 +2,11 @@
 #include "game.h"
 #include "menu.h"
 
+void setCursor(int x, int y) {
+	COORD pos = { x, y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
 void main() {
 	char GameWorld[SIZE_X][SIZE_Y];
 	PlayerPos MyPos;
@@ -33,7 +38,7 @@ void main() {
 			PrintBoard(GameWorld, score);
 
 			while (1) {
-				system("cls");
+				setCursor(0, 0);
 				count += 1;
 				PrintBoard(GameWorld, score);
 				ControlPlayer(GameWorld, &MyPos);
